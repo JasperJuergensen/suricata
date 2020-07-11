@@ -1,0 +1,185 @@
+%YAML 1.2
+---
+name: Suricata
+file_extensions:
+  - rules
+scope: text.suricata
+
+contexts:
+  main:
+    - scope: 'storage.type.option.suricata'
+      match: '\b(msg|sid|rev|gid|classtype|reference|priority|metadata|target)\b'
+
+    - scope: 'storage.type.option.suricata'
+      match: '\b(ttl|ipopts|sameip|ip_proto|ipv4\.hdr|ipv6\.hdr|id|geoip|fragbits|fragoffset|tos)'
+
+    - scope: 'storage.type.option.suricata'
+      match: '\b(seq|ack|window|tcp\.mss|tcp\hdr)'
+
+    - scope: 'storage.type.option.suricata'
+      match: '\b(udp\.hdr)'
+
+    - scope: 'storage.type.option.suricata'
+      match: '\b(itype|icode|icmp_id|icmp_seq)'
+
+    - scope: 'storage.type.option.suricata'
+      match: '\b(content|nocase|depth|startswith|endswith|offset|distance|within|isdataat|bsize|dsize|byte_test|byte_jump|byte_extract|rpc|replace|pcre)'
+
+    - scope: 'storage.type.option.suricata'
+      match: '\b(dotprefix|strip_whitespace|compress_whitespace|to_sha256|to_md5|to_sha1)'
+
+    - scope: 'storage.type.option.suricata'
+      match: '\b(fast_pattern|prefilter)'
+
+    - scope: 'storage.type.option.suricata'
+      match: '\b(flowbits|flow|flowint|stream_size)'
+
+    - scope: 'entity.name.constant.suricata'
+      match: '\b(bypass)'
+
+    - scope: 'entity.name.constant.suricata'
+      match: '\b(http(\.|_)(header|header\.raw|cookie|content_type|content_len|start|protocol|header_names))'
+
+    - scope: 'entity.name.constant.suricata'
+      match: '\b(http(\.|_)(uri|uri\.raw|method|request_line|request_body|user_agent|host|host\.raw|accept|accept_lang|accept_enc|referer|connection))'
+    
+    - scope: 'entity.name.constant.suricata'
+      match: '\b(http(\.|_)(stat_msg|stat_code|response_line|response_body|server|location)|file_data)'
+
+    - scope: 'storage.type.option.suricata'
+      match: '\b(urilen|uricontent)'
+
+    - scope: 'storage.type.option.suricata'
+      match: '\b(filename|fileext|filemagic|filestore|filemd5|filesha1|filesha256|filesize)'
+
+    - scope: 'storage.type.option.suricata'
+      match: '\b(dns\.opcode)'
+
+    - scope: 'entity.name.constant.suricata'
+      match: '\b(dns(\.|_)query)'
+
+    - scope: 'entity.name.constant.suricata'
+      match: '\b(tls(\.|_)(cert_subject|cert_issuer|cert_serial|cert_fingerprint|sni|certs|store))'
+
+    - scope: 'storage.type.option.suricata'
+      match: '\b(tls(\.|_)(cert_notbefore|cert_notafter|cert_expired|cert_valid|version|subject|issuerdn|fingerprint)|ssl_version|ssl_state)'
+
+    - scope: 'storage.type.option.suricata'
+      match: '\b(ssh(\.|_)(proto|software|protoversion|softwareversion))'
+
+    - scope: 'storage.type.option.suricata'
+      match: '\b(ja3s?(\.|_)(hash|string))'
+
+    - scope: 'storage.type.option.suricata'
+      match: '\b(modbus)'
+
+    - scope: 'storage.type.option.suricata'
+      match: '\b(dnp3_func|dnp3_ind|dnp3_obj)'
+
+    - scope: 'entity.name.constant.suricata'
+      match: '\b(dnp3_data)'
+
+    - scope: 'storage.type.option.suricata'
+      match: '\b(enip_command|cip_service)'
+
+    - scope: 'storage.type.option.suricata'
+      match: '\b(ftpdata_command|ftpbounce)'
+
+    - scope: 'storage.type.option.suricata'
+      match: '\b(krb5_msg_type|krb5_err_code)'
+
+    - scope: 'entity.name.constant.suricata'
+      match: '\b(krb5_cname|krb5_sname)'
+
+    - scope: 'storage.type.option.suricata'
+      match: '\b(snmp\.version|snmp\.pdu_type)'
+
+    - scope: 'entity.name.constant.suricata'
+      match: '\b(snmp\.community)'
+
+    - scope: 'storage.type.option.suricata'
+      match: '\b(base64_decode)'
+
+    - scope: 'entity.name.constant.suricata'
+      match: '\b(base64_data)'
+
+    - scope: 'entity.name.constant.suricata'
+      match: '\b(sip.\method|sip\.uri|sip\.request_line|sip\.stat_code|sip\.stat_msg|sip\.response_line|sip\.protocol)'
+
+    - scope: 'storage.type.option.suricata'
+      match: '\b(app-layer-protocol|app-layer-event)'
+
+    - scope: 'storage.type.option.suricata'
+      match: '\b(xbits)'
+
+    - scope: 'storage.type.option.suricata'
+      match: '\b(threshold|detection_filter)'
+
+    - scope: 'storage.type.option.suricata'
+      match: '\b(iprep)'
+
+    - scope: 'storage.type.option.suricata'
+      match: '\b(lua)'
+
+    - scope: 'variable.language.any.suricata'
+      match: '\bany\b'
+
+    - match: 'pcre: ?("|”)'
+      scope: punctuation.definition.string.begin.suricata
+      push: regexp_string
+
+    - match: '("|”)'
+      scope: punctuation.definition.string.begin.suricata
+      push: double_quoted_string
+
+    - scope: 'keyword.operator.not.suricata'
+      match: '!'
+
+    - scope: 'variable.parameter.suricata'
+      match: '(\$)[A-Z0-9_]+\b'
+
+    - scope: 'invalid.illegal.variable.suricata'
+      match: '(\$)[A-Z0-9_]*[a-z]+[A-Z0-9_]*\b'
+
+    - scope: 'comment.line'
+      match: '^#.*\n'
+
+    - match: '#'
+      scope: punctuation.definition.comment.suricata
+      push:
+        - meta_scope: comment.block.suricata
+        - match: $\n?
+          pop: true
+
+    - scope: 'keyword.other.action.suricata'
+      match: '^(pass|drop|reject|alert)\b'
+
+    - scope: 'keyword.other.protocol.suricata'
+      match: '\b(tcp|udp|icmp|ip|http|ftp-data|ftp|tls|smb|dns|dcerpc|ssh|smtp|imap|msn|modbus|dnp3|enip|nfs|ikev2|krb5|ntp|dhcp)\b'
+
+    - scope: 'variable.parameter.ipaddress.suricata'
+      match: '(([0-9]|[1-9][0-9]|1[0-9]{2|2[0-4][0-9]|25[0-5])\.){3([0-9]|[1-9][0-9]|1[0-9]{2|2[0-4][0-9]|25[0-5])\b'
+
+    - scope: 'variable.parameter.ipsubnet.suricata'
+      match: '/(3[0-2]|[1-2][0-9]|[0-9])\b'
+
+    - scope: 'support.constant.ports.suricata'
+      match: '(\b|:)([0-9]{1,3|10[0-2][0-4])(:|\b)'
+
+    - scope: 'keyword.other.direction.suricata'
+      match: '(->|<>)'
+
+    - scope: 'invalid.illegal.direction.suricata'
+      match: '(<-)'
+
+  double_quoted_string:
+    - meta_scope: string.quoted.double.suricata
+    - match: '("|”)'
+      scope: punctuation.definition.string.end.suricata
+      pop: true
+
+  regexp_string:
+    - meta_scope: string.regexp.suricata
+    - match: '("|”)'
+      scope: punctuation.definition.string.end.suricata
+      pop: true

@@ -1,0 +1,25 @@
+// SYNTAX TEST "Packages/Suricata/suricata.sublime-syntax"
+drop tcp $HOME_NET any -> $EXTERNAL_NET any (msg:”ET TROJAN Likely Bot Nick in IRC (USA +..)”; flow:established,to_server; flowbits:isset,is_proto_irc; content:”NICK “; pcre:”/NICK .*USA.*[0-9]{3,}/i”; reference:url,doc.emergingthreats.net/2008124; classtype:trojan-activity; sid:2008124; rev:2;)
+// ^ keyword.other.action.suricata
+//    ^ keyword.other.protocol.suricata
+//         ^ variable.parameter.suricata
+//                   ^ variable.language.any.suricata
+//                      ^ keyword.other.direction.suricata
+
+alert tcp $HOME_NET any -> $EXTERNAL_NET $HTTP_PORTS (msg:”ET TROJAN Possible Vundo Trojan Variant reporting to Controller”; flow:established,to_server; content:”POST “; depth:5; uricontent:”/frame.html?”; urilen: > 80; classtype:trojan-activity; reference:url,doc.emergingthreats.net/2009173; reference:url,www.emergingthreats.net/cgi-bin/cvsweb.cgi/sigs/VIRUS/TROJAN_Vundo; sid:2009173; rev:2;)
+//                                                                                                                                                                                        ^ storage.type.option.suricata
+//                                                                                                                                                                                                                ^ storage.type.option.suricata
+alert http any any -> any any (file_data; content:"abc"; content:"xyz";)
+//                               ^ entity.name.constant.suricata
+alert http any any -> any any (http.header_names; content:"|0d 0a|Host|0d 0a|User-Agent|0d 0a|"; sid:1;)
+//                                    ^ entity.name.constant.suricata
+alert http any any -> any any (http.accept_lang; content:"en-us"; sid:1;)
+//                                ^ entity.name.constant.suricata
+alert http any any -> any any (http.response_line; content:"HTTP/1.0 200 OK"; sid:1;)
+//                                   ^ entity.name.constant.suricata
+
+alert udp any any -> any any (msg:"Test"; dns.query; content:"test")
+//                                          ^ entity.name.constant.suricata
+
+# this is a comment
+//   ^ text.suricata comment.line
